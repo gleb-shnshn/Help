@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 setFragment("Дневник", new ContactsFragment());
                 break;
             case R.id.navigation_chat:
-                setFragment("Чат", new ContactsFragment());
+                setFragment("Чат", new ChatFragment());
                 break;
             case R.id.navigation_contacts:
                 setFragment("Контакты", new ContactsFragment());
