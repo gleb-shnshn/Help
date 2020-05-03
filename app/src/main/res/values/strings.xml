@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Help</string>
+    <string name="server_url">https://stockstore.herokuapp.com/</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="no_connection">Нет подключения к интернету</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="create_an_account">Создать аккаунт</string>
+    <string name="already_registered">Уже зарегистрированы?</string>
+    <string name="sign_in">Войти</string>
+    <string name="login_hint">login123</string>
+    <string name="wrong_auth_data">Неверный логин или пароль</string>
+    <string name="name_hint">Иван Иванов</string>
+    <string name="empty_fields">Поля не могут быть пустыми</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="blurred_password_hint">********</string>
+    <string name="name_and_surname">Имя и фамилия</string>
+</resources>
