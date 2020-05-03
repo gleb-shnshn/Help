@@ -14,13 +14,14 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder> {
-    ArrayList<Contact> contacts;
+public class FormAdapter extends RecyclerView.Adapter<FormAdapter.ViewHolder> {
+    ArrayList<Form> forms;
     LayoutInflater inflater;
 
-    ContactAdapter(Context context, ArrayList<Contact> contacts) {
+
+    FormAdapter(Context context, ArrayList<Form> forms) {
         inflater = LayoutInflater.from(context);
-        this.contacts = contacts;
+        this.forms = forms;
     }
 
     @NonNull
@@ -31,26 +32,35 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Contact contact = contacts.get(position);
-        holder.name.setText(contact.getName());
-        holder.description.setText(contact.getDescription());
-        Glide.with(inflater.getContext()).load(contact.getIcon()).into(holder.icon);
+        Form form = forms.get(position);
+        holder.name.setText(form.getFormName());
+        holder.description.setText(form.getDescription());
+        holder.formId = form.getFormId();
+        Glide.with(inflater.getContext()).load(form.getIcon()).into(holder.icon);
     }
 
     @Override
     public int getItemCount() {
-        return contacts.size();
+        return forms.size();
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView name, description;
         ImageView icon;
+        int formId;
 
         ViewHolder(View view) {
             super(view);
             name = view.findViewById(R.id.name);
             description = view.findViewById(R.id.description);
             icon = view.findViewById(R.id.icon);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
         }
 
     }

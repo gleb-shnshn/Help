@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class ChatFragment extends Fragment {
+public class ChatFragment extends Fragment implements View.OnClickListener {
     RecyclerView chatView;
     ImageView sendButton;
     EditText messageInput;
@@ -43,6 +43,16 @@ public class ChatFragment extends Fragment {
         MessageAdapter messageAdapter = new MessageAdapter(getContext(), messages);
         chatView.setAdapter(messageAdapter);
         chatView.setLayoutManager(new LinearLayoutManager(getContext()));
+        sendButton.setOnClickListener(this);
         super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onClick(View v) {
+        String msg = messageInput.getText().toString();
+        if (msg.equals("")){
+            App.getInstance().getUtils().showError("Введите сообщение");
+        }
+
     }
 }

@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.navigation_tests:
-                setFragment("Тесты", new TestFragment());
+                setFragment("Тесты", new FormsFragment());
                 break;
             case R.id.navigation_diary:
                 setFragment("Дневник", new ContactsFragment());
