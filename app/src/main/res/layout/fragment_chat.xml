@@ -9,6 +9,47 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chat_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/ll"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <EditText
+            android:id="@+id/messageInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="90"
+            android:background="@drawable/input"
+            android:ems="10"
+            android:focusableInTouchMode="true"
+            android:hint="Ваше сообщение"
+            android:inputType="text|textMultiLine|textCapSentences"
+            android:padding="10dp"
+            android:textColor="#000" />
+
+        <ImageView
+            android:id="@+id/sendButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="9"
+            android:background="@drawable/inputb"
+            android:maxLines="2"
+            android:src="@drawable/sent"
+            tools:ignore="contentDescription" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

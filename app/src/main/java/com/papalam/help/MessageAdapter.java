@@ -7,6 +7,7 @@ import android.graphics.drawable.shapes.OvalShape;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,25 +41,35 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     @NonNull
     @Override
     public MessageAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MessageAdapter.ViewHolder(inflater.inflate(R.layout.layout_message, parent, false));
+        return new MessageAdapter.ViewHolder(inflater.inflate(R.layout.layout_msg, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull MessageAdapter.ViewHolder holder, int position) {
         Message message = messages.get(position);
-        holder.name.setText(message.name);
-        holder.text.setText(message.msg);
-        String[] shorted = message.name.split(" ");
-        holder.logo.setText(shorted[0].charAt(0) + "" + shorted[1].charAt(0));
-        ShapeDrawable sd = new ShapeDrawable();
-        sd.setShape(new OvalShape());
-        sd.setIntrinsicHeight(100);
-        sd.setIntrinsicWidth(100);
-        Random rand = new Random();
-        int clr = Color.parseColor(colors[message.id % colors.length]);
-        sd.getPaint().setColor(clr);
-        holder.logo.setBackground(sd);
-        holder.name.setTextColor(clr);
+        if (message.isMine) {
+            holder.text1.setText(message.msg);
+            holder.lay1.setVisibility(View.VISIBLE);
+            holder.lay2.setVisibility(View.GONE);
+        } else {
+            holder.name.setText(message.name);
+            holder.text2.setText(message.msg);
+            String[] shorted = message.name.split(" ");
+            holder.logo.setText(shorted[0].charAt(0) + "" + shorted[1].charAt(0));
+            int clr = Color.parseColor(colors[message.getId() % colors.length]);
+            if (message.getBd() == null) {
+                ShapeDrawable sd = new ShapeDrawable();
+                sd.setShape(new OvalShape());
+                sd.setIntrinsicHeight(100);
+                sd.setIntrinsicWidth(100);
+                sd.getPaint().setColor(clr);
+                message.setBd(sd);
+            }
+            holder.logo.setBackground(message.getBd());
+            holder.name.setTextColor(clr);
+            holder.lay2.setVisibility(View.VISIBLE);
+            holder.lay1.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -67,13 +78,17 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name, text;
+        TextView name, text1, text2;
         TextView logo;
+        LinearLayout lay1, lay2;
 
         ViewHolder(View view) {
             super(view);
             name = view.findViewById(R.id.name);
-            text = view.findViewById(R.id.text);
+            text1 = view.findViewById(R.id.text1);
+            text2 = view.findViewById(R.id.text2);
+            lay1 = view.findViewById(R.id.lay1);
+            lay2 = view.findViewById(R.id.lay2);
             logo = view.findViewById(R.id.logo);
         }
     }
