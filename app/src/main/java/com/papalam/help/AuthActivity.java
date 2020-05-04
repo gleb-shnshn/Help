@@ -90,7 +90,7 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
             App.getInstance().getUtils().showError(getString(R.string.empty_fields));
             return;
         }
-        if (loginField.getText().toString().equals("admin") && passwordField.getText().toString().equals("admin")) {
+        if (loginField.getText().toString().equals("test") && passwordField.getText().toString().equals("test")) {
             switchToStockCase();
             App.getInstance().getDataHandler().saveTokens("logined", "logined");
         }

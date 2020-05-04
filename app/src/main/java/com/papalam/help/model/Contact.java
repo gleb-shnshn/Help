@@ -1,9 +1,10 @@
 package com.papalam.help.model;
 
-import android.graphics.drawable.Drawable;
 
 public class Contact {
     String name;
+    String description;
+    String icon;
 
     public String getName() {
         return name;
@@ -28,10 +29,6 @@ public class Contact {
     public void setIcon(String icon) {
         this.icon = icon;
     }
-
-    String description;
-    String icon;
-
     public Contact(String name, String description, String icon) {
         this.name = name;
         this.description = description;

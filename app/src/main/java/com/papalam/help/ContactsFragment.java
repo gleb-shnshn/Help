@@ -15,6 +15,10 @@ import com.papalam.help.model.Contact;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class ContactsFragment extends Fragment {
     RecyclerView contactsView;
 
@@ -32,12 +36,19 @@ public class ContactsFragment extends Fragment {
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        ArrayList<Contact> contacts = new ArrayList<>();
-        contacts.add(new Contact("Горячая линия", "Номер телефона: 8-800-700-84-36", "https://upload.wikimedia.org/wikipedia/ru/thumb/e/e2/Vera_black_dan_copy.jpg/375px-Vera_black_dan_copy.jpg"));
-        contacts.add(new Contact("Телефон доверия", "Номер телефона: 8-800-2000-122", "https://telefon-doveria.ru/wp-content/uploads/2016/08/logo.png"));
-        ContactAdapter contactAdapter = new ContactAdapter(getActivity(), contacts);
-        contactsView.setAdapter(contactAdapter);
-        contactsView.setLayoutManager(new LinearLayoutManager(getContext()));
+        App.getInstance().getRetrofit().getContacts().enqueue(new Callback<ContactsResponse>() {
+            @Override
+            public void onResponse(Call<ContactsResponse> call, Response<ContactsResponse> response) {
+                ContactAdapter contactAdapter = new ContactAdapter(getActivity(), response.body().getContacts());
+                contactsView.setAdapter(contactAdapter);
+                contactsView.setLayoutManager(new LinearLayoutManager(getContext()));
+            }
+
+            @Override
+            public void onFailure(Call<ContactsResponse> call, Throwable t) {
+                App.getInstance().getUtils().showError("Нет доступа к интернету" + t.toString());
+            }
+        });
         super.onActivityCreated(savedInstanceState);
     }
 }

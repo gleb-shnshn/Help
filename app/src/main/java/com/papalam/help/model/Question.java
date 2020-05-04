@@ -7,11 +7,30 @@ import java.util.List;
 
 public class Question {
 
+    public int getCheckedId() {
+        return checkedId;
+    }
+
+    public void setCheckedId(int checkedId) {
+        this.checkedId = checkedId;
+    }
+
+    public void setChoices(List<String> choices) {
+        this.choices = choices;
+    }
+
+    public void setScores(List<Integer> scores) {
+        this.scores = scores;
+    }
+
+    int checkedId = -1;
+
     @SerializedName("question_id")
     int questionId;
 
     @SerializedName("question_text")
     String questionText;
+
     String type;
     List<String> choices;
     List<Integer> scores;

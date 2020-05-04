@@ -13,14 +13,25 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.papalam.help.model.Question;
+import com.papalam.help.model.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class TestFragment extends Fragment {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class TestFragment extends Fragment implements View.OnClickListener {
     TextView name;
     RecyclerView questionView;
+    QuestionAdapter questionAdapter;
+    int id;
+
+    TestFragment(int id) {
+        this.id = id;
+    }
 
     @Nullable
     @Override
@@ -32,27 +43,34 @@ public class TestFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         questionView = view.findViewById(R.id.question_view);
         name = view.findViewById(R.id.name);
+        view.findViewById(R.id.approve).setOnClickListener(this);
         super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        ArrayList<Question> questions = new ArrayList<>();
-        List<String> choices = Arrays.asList("Да", "Нет");
-        List<Integer> scores = Arrays.asList(0, 1);
-        questions.add(new Question(0,
-                "Сколько вы зарабатываете?",
-                "radio", choices, scores));
-        questions.add(new Question(0,
-                "Сколько вы зарабатываете?",
-                "radio", choices, scores));
-        questions.add(new Question(0,
-                "Сколько вы зарабатываете?",
-                "radio", choices, scores));
-        QuestionAdapter questionAdapter = new QuestionAdapter(getContext(), questions);
-        questionView.setAdapter(questionAdapter);
-        questionView.setLayoutManager(new LinearLayoutManager(getContext()));
+        App.getInstance().getRetrofit().getTestById(id).enqueue(new Callback<Test>() {
+            @Override
+            public void onResponse(Call<Test> call, Response<Test> response) {
+                questionAdapter = new QuestionAdapter(getContext(), response.body().getQuestions());
+                questionView.setAdapter(questionAdapter);
+                questionView.setLayoutManager(new LinearLayoutManager(getContext()));
+            }
+
+            @Override
+            public void onFailure(Call<Test> call, Throwable t) {
+                App.getInstance().getUtils().showError("Нет доступа к интернету");
+            }
+        });
         super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int sum = questionAdapter.getSum();
+        if (sum == -1) {
+            App.getInstance().getUtils().showError("Отметьте все поля");
+        }
     }
 }
 

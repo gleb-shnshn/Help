@@ -37,4 +37,15 @@
         app:layout_constraintEnd_toEndOf="@id/descriptionEditText"
         app:layout_constraintStart_toStartOf="@id/descriptionEditText"
         app:layout_constraintTop_toBottomOf="@id/descriptionEditText" />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/descriptionEditText"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintStart_toStartOf="@id/descriptionEditText"
+        app:layout_constraintTop_toBottomOf="@id/applyPicture" />
 </androidx.constraintlayout.widget.ConstraintLayout>

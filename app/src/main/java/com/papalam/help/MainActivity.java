@@ -11,15 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     TextView title;
-    FormsFragment formsFragment = new FormsFragment();
-    ModelFragment modelFragment = new ModelFragment();
+    AllTestsFragment allTestsFragment = new AllTestsFragment();
     ChatFragment chatFragment = new ChatFragment();
     ContactsFragment contactsFragment = new ContactsFragment();
     PainFragment painFragment = new PainFragment();
@@ -49,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.navigation_tests:
-                setFragment("Тесты", formsFragment);
+                setFragment("Тесты", allTestsFragment);
                 break;
             case R.id.navigation_diary:
                 setFragment("Дневник", calendarFragment);

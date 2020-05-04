@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +21,7 @@ import java.io.ByteArrayOutputStream;
 
 public class PainFragment extends Fragment implements View.OnClickListener {
     public static final int INPUT_FILE_REQUEST_CODE = 1;
+    ImageView image;
 
     @Nullable
     @Override
@@ -30,6 +32,7 @@ public class PainFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         view.findViewById(R.id.applyPicture).setOnClickListener(this);
+        image = view.findViewById(R.id.image);
         super.onViewCreated(view, savedInstanceState);
     }
 
@@ -76,6 +79,8 @@ public class PainFragment extends Fragment implements View.OnClickListener {
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                 photo.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
                 String path = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), photo, "Title", null);
+                image.setImageBitmap(photo);
+
             }
         }
     }

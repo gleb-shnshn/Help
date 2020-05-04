@@ -9,6 +9,7 @@ class GeneralUtils {
                 .text(errorMessage)
                 .cornerRadius(5)
                 .textSize(13)
+                .font(R.font.gilroyl)
                 .textColor(App.getInstance().getResources().getColor(R.color.white))
                 .backgroundColor(App.getInstance().getResources().getColor(R.color.errorColor))
                 .show();

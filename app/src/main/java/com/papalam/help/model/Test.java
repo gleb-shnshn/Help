@@ -4,9 +4,36 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-public class Form {
+public class Test {
+
+    @SerializedName("description")
     public String description;
+
+    @SerializedName("questions")
     ArrayList<Question> questions;
+
+    @SerializedName("name")
+    String name;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @SerializedName("form_name")
+    String formName;
+
+    @SerializedName("form_id")
+    int formId;
+
+    @SerializedName("id")
+    int id;
+
+    @SerializedName("icon")
+    String icon;
 
     public String getDescription() {
         return description;
@@ -24,18 +51,12 @@ public class Form {
         this.icon = icon;
     }
 
-    String icon;
+    public String getName() {
+        return name;
+    }
 
-    @SerializedName("form_name")
-    String formName;
-
-    @SerializedName("form_id")
-    int formId;
-
-    public Form(String formName, String description, String icon) {
-        this.description = description;
-        this.icon = icon;
-        this.formName = formName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public ArrayList<Question> getQuestions() {

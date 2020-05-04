@@ -11,18 +11,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.papalam.help.model.Form;
+import com.papalam.help.model.Test;
 
 import java.util.ArrayList;
 
-public class FormAdapter extends RecyclerView.Adapter<FormAdapter.ViewHolder> {
-    ArrayList<Form> forms;
+public class TestsAdapter extends RecyclerView.Adapter<TestsAdapter.ViewHolder> {
+    ArrayList<Test> tests;
     LayoutInflater inflater;
 
 
-    FormAdapter(Context context, ArrayList<Form> forms) {
+    TestsAdapter(Context context, ArrayList<Test> tests) {
         inflater = LayoutInflater.from(context);
-        this.forms = forms;
+        this.tests = tests;
     }
 
     @NonNull
@@ -33,16 +33,16 @@ public class FormAdapter extends RecyclerView.Adapter<FormAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Form form = forms.get(position);
-        holder.name.setText(form.getFormName());
-        holder.description.setText(form.getDescription());
-        holder.formId = form.getFormId();
-        Glide.with(inflater.getContext()).load(form.getIcon()).into(holder.icon);
+        Test test = tests.get(position);
+        holder.name.setText(test.getName());
+        holder.description.setText(test.getDescription());
+        holder.formId = test.getId();
+        Glide.with(inflater.getContext()).load(test.getIcon()).into(holder.icon);
     }
 
     @Override
     public int getItemCount() {
-        return forms.size();
+        return tests.size();
     }
 
 
@@ -59,7 +59,7 @@ public class FormAdapter extends RecyclerView.Adapter<FormAdapter.ViewHolder> {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    ((MainActivity) (inflater.getContext())).setFragment(name.getText().toString(), new TestFragment(formId));
                 }
             });
         }

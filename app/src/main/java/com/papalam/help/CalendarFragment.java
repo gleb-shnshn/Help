@@ -4,12 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 public class CalendarFragment extends Fragment implements View.OnClickListener {
@@ -30,6 +30,51 @@ public class CalendarFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        ((MainActivity) getActivity()).setFragment("27 июля 2020", new AllPainFragment());
+        if (calendarView.getSelectedDate() == null) {
+            App.getInstance().getUtils().showError("Выберите дату");
+            return;
+        }
+        String month = "";
+        CalendarDay date = calendarView.getSelectedDate();
+        switch (date.getMonth()) {
+            case 1:
+                month = "января";
+                break;
+            case 2:
+                month = "февраля";
+                break;
+            case 3:
+                month = "марта";
+                break;
+            case 4:
+                month = "апреля";
+                break;
+            case 5:
+                month = "мая";
+                break;
+            case 6:
+                month = "июня";
+                break;
+            case 7:
+                month = "июля";
+                break;
+            case 8:
+                month = "августа";
+                break;
+            case 9:
+                month = "сентября";
+                break;
+            case 10:
+                month = "октября";
+                break;
+            case 11:
+                month = "ноября";
+                break;
+            case 12:
+                month = "декабря";
+                break;
+        }
+
+        ((MainActivity) getActivity()).setFragment(date.getDay() + " " + month + " " + date.getYear(), new AllPainFragment());
     }
 }

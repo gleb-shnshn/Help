@@ -1,7 +1,7 @@
 package com.papalam.help;
 
 import android.app.Application;
-import android.content.Intent;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -9,6 +9,7 @@ import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -16,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class App extends Application {
     private static App instance;
-    private Retrofit retrofit;
+    private ServerApi retrofit;
     private DataHandler sharedPrefsHandler;
     private GeneralUtils utils;
     private AppCompatActivity currentActivity;
@@ -39,7 +40,7 @@ public class App extends Application {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .baseUrl(server)
                 .client(okHttpClient)
-                .build();
+                .build().create(ServerApi.class);
 
     }
 
@@ -52,7 +53,7 @@ public class App extends Application {
         return instance;
     }
 
-    public Retrofit getRetrofit() {
+    public ServerApi getRetrofit() {
         return retrofit;
     }
 
