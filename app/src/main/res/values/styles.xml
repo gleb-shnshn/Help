@@ -7,4 +7,14 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <style name="AppTheme.CalendarHeader">
+        <!-- Customize your theme here. -->
+        <item name="fontFamily">@font/jost</item>
+    </style>
+
+    <style name="AppTheme.CalendarDay">
+        <!-- Customize your theme here. -->
+        <item name="fontFamily">@font/gilroyl</item>
+    </style>
 </resources>

@@ -1,4 +1,4 @@
-package com.papalam.help;
+package com.papalam.help.model;
 
 import android.graphics.drawable.Drawable;
 

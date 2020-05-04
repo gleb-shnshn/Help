@@ -9,8 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.papalam.help.model.LoginAndPassword;
 
 
 public class AuthActivity extends AppCompatActivity implements View.OnClickListener {

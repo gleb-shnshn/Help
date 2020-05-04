@@ -8,6 +8,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,17 +18,23 @@ import androidx.fragment.app.Fragment;
 
 import java.io.ByteArrayOutputStream;
 
-public class PainFragment extends Fragment {
+public class PainFragment extends Fragment implements View.OnClickListener {
     public static final int INPUT_FILE_REQUEST_CODE = 1;
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_pain, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        view.findViewById(R.id.applyPicture).setOnClickListener(this);
+        super.onViewCreated(view, savedInstanceState);
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        Permissioner permissioner = new Permissioner(getActivity());
-        if (!permissioner.checkPermissionForCamera())
-            permissioner.requestPermissionForCamera();
-        else {
-            applyImage();
-        }
         super.onActivityCreated(savedInstanceState);
     }
 
@@ -41,12 +50,6 @@ public class PainFragment extends Fragment {
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentArray);
         chooserIntent.putExtra(Intent.EXTRA_TITLE, "Прикрепить изображение");
         startActivityForResult(chooserIntent, INPUT_FILE_REQUEST_CODE);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        applyImage();
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
@@ -74,6 +77,16 @@ public class PainFragment extends Fragment {
                 photo.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
                 String path = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), photo, "Title", null);
             }
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        Permissioner permissioner = new Permissioner(getActivity());
+        if (!permissioner.checkPermissionForCamera())
+            permissioner.requestPermissionForCamera();
+        else {
+            applyImage();
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.papalam.help;
 
+import com.papalam.help.model.Contact;
+
 import java.util.ArrayList;
 
 public class ContactsResponse {

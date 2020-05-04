@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.papalam.help.model.Question;
+
 import java.util.ArrayList;
 
 public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHolder> {
@@ -33,7 +35,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHo
     public void onBindViewHolder(@NonNull QuestionAdapter.ViewHolder holder, int position) {
         Question question = questions.get(position);
         holder.name.setText(question.getQuestionText());
-        for (String choice : question.choices) {
+        for (String choice : question.getChoices()) {
             RadioButton newRadioButton = new RadioButton(inflater.getContext());
             newRadioButton.setText(choice);
             newRadioButton.setTextSize(17f);

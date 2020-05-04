@@ -13,8 +13,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.papalam.help.model.Message;
+
 import java.util.ArrayList;
-import java.util.Random;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
     ArrayList<Message> messages;
@@ -47,14 +48,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull MessageAdapter.ViewHolder holder, int position) {
         Message message = messages.get(position);
-        if (message.isMine) {
-            holder.text1.setText(message.msg);
+        if (message.isMine()) {
+            holder.text1.setText(message.getMsg());
             holder.lay1.setVisibility(View.VISIBLE);
             holder.lay2.setVisibility(View.GONE);
         } else {
-            holder.name.setText(message.name);
-            holder.text2.setText(message.msg);
-            String[] shorted = message.name.split(" ");
+            holder.name.setText(message.getName());
+            holder.text2.setText(message.getMsg());
+            String[] shorted = message.getName().split(" ");
             holder.logo.setText(shorted[0].charAt(0) + "" + shorted[1].charAt(0));
             int clr = Color.parseColor(colors[message.getId() % colors.length]);
             if (message.getBd() == null) {

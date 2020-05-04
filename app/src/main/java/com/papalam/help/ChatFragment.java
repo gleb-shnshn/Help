@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.papalam.help.model.Message;
+
 import java.util.ArrayList;
 
 public class ChatFragment extends Fragment implements View.OnClickListener {
