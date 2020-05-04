@@ -1,5 +1,8 @@
 package com.papalam.help;
+
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -26,6 +29,9 @@ public class LoadingButton extends FrameLayout {
                 DEFAULT_PROGRESS_MARGIN);
         mProgressBar = new ProgressBar(getContext());
         mProgressBar.setLayoutParams(progressBarParams);
+        mProgressBar.setProgressTintList(ColorStateList.valueOf(Color.WHITE));
+        mProgressBar.setSecondaryProgressTintList(ColorStateList.valueOf(Color.WHITE));
+        mProgressBar.setIndeterminateTintList(ColorStateList.valueOf(Color.WHITE));
         mProgressBar.setVisibility(View.INVISIBLE);
 
         LayoutParams textViewParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, Gravity.CENTER);

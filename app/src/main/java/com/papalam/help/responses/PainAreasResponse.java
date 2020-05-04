@@ -1,4 +1,4 @@
-package com.papalam.help;
+package com.papalam.help.responses;
 
 import com.google.gson.annotations.SerializedName;
 import com.papalam.help.model.PainPoint;

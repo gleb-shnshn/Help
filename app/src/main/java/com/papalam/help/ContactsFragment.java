@@ -11,9 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.papalam.help.model.Contact;
-
-import java.util.ArrayList;
+import com.papalam.help.responses.ContactsResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;

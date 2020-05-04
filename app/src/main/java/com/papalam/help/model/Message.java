@@ -4,7 +4,7 @@ import android.graphics.drawable.Drawable;
 
 public class Message {
     String name;
-    String msg;
+    String text;
     Drawable bd;
     int color;
     boolean isMine;
@@ -18,12 +18,12 @@ public class Message {
         this.name = name;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getText() {
+        return text;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public Drawable getBd() {
@@ -58,9 +58,9 @@ public class Message {
         this.id = id;
     }
 
-    public Message(String name, String msg, int id, boolean isMine) {
+    public Message(String name, String text, int id, boolean isMine) {
         this.name = name;
-        this.msg = msg;
+        this.text = text;
         this.id = id;
         this.isMine = isMine;
     }

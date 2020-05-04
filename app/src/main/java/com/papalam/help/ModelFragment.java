@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.papalam.help.model.PainPoint;
+import com.papalam.help.responses.PainAreasResponse;
 
 import java.util.ArrayList;
 
@@ -53,6 +54,7 @@ public class ModelFragment extends Fragment implements View.OnTouchListener {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        getActivity().getWindowManager().getDefaultDisplay().getSize()
         App.getInstance().getRetrofit().getPainAreas("test", "2020-05-04").enqueue(new Callback<PainAreasResponse>() {
             @Override
             public void onResponse(Call<PainAreasResponse> call, Response<PainAreasResponse> response) {
@@ -89,7 +91,9 @@ public class ModelFragment extends Fragment implements View.OnTouchListener {
                 break;
             case MotionEvent.ACTION_UP: // отпускание
             case MotionEvent.ACTION_CANCEL:
-                ((MainActivity) getActivity()).setFragment("Новая запись", new PainFragment());
+                MainActivity activity = (MainActivity) getActivity();
+                activity.setFragment("Новая запись", activity.painFragment);
+                activity.painFragment.setXY(x, y);
                 break;
         }
         return true;

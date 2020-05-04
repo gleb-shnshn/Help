@@ -7,6 +7,8 @@ public class LoginAndPassword {
     String login;
     @SerializedName("password")
     String password;
+    @SerializedName("name")
+    String name;
 
     public LoginAndPassword(String login, String password) {
         this.login = login;

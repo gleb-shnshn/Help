@@ -49,15 +49,19 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public void onBindViewHolder(@NonNull MessageAdapter.ViewHolder holder, int position) {
         Message message = messages.get(position);
         if (message.isMine()) {
-            holder.text1.setText(message.getMsg());
+            holder.text1.setText(message.getText());
             holder.lay1.setVisibility(View.VISIBLE);
             holder.lay2.setVisibility(View.GONE);
         } else {
             holder.name.setText(message.getName());
-            holder.text2.setText(message.getMsg());
+            holder.text2.setText(message.getText());
             String[] shorted = message.getName().split(" ");
-            holder.logo.setText(shorted[0].charAt(0) + "" + shorted[1].charAt(0));
-            int clr = Color.parseColor(colors[message.getId() % colors.length]);
+            String nm = "";
+            for (int i = 0; i < Math.min(shorted.length, 2); i++) {
+                nm += shorted[i].charAt(0);
+            }
+            holder.logo.setText(nm);
+            int clr = Color.parseColor(colors[message.getName().hashCode() % colors.length]);
             if (message.getBd() == null) {
                 ShapeDrawable sd = new ShapeDrawable();
                 sd.setShape(new OvalShape());

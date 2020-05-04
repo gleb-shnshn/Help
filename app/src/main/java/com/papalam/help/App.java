@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -31,10 +32,15 @@ public class App extends Application {
         sharedPrefsHandler = new DataHandler();
         utils = new GeneralUtils();
         File httpCacheDirectory = new File(getCacheDir(), "responses");
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .cache(new Cache(httpCacheDirectory, 10 * 1024 * 1024))
                 .connectTimeout(30, TimeUnit.SECONDS)
+                .addInterceptor(logging)
                 .build();
+
+
 
         retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))

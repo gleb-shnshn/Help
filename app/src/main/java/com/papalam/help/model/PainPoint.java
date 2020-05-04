@@ -4,12 +4,40 @@ import com.google.gson.annotations.SerializedName;
 
 public class PainPoint {
     float x;
+
     float y;
+    float r;
+    String login;
 
     @SerializedName("image_path")
     String imagePath;
 
     String comment;
+
+    public float getR() {
+        return r;
+    }
+
+    public PainPoint(float x, float y, String comment) {
+        this.x = x;
+        this.y = y;
+        this.comment = comment;
+        this.r = 15;
+        this.login = "test";
+    }
+
+    public void setR(float r) {
+        this.r = r;
+    }
+
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
 
     public float getX() {
         return x;

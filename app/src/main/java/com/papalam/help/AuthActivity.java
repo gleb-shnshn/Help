@@ -12,6 +12,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.papalam.help.model.LoginAndPassword;
+import com.papalam.help.responses.DefaultResponse;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class AuthActivity extends AppCompatActivity implements View.OnClickListener {
@@ -90,9 +95,45 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
             App.getInstance().getUtils().showError(getString(R.string.empty_fields));
             return;
         }
-        if (loginField.getText().toString().equals("test") && passwordField.getText().toString().equals("test")) {
-            switchToStockCase();
-            App.getInstance().getDataHandler().saveTokens("logined", "logined");
+        showProgress(true);
+        if (isLoginOrRegistration) {
+            App.getInstance().getRetrofit().login(getLoginDataFromFields()).enqueue(new Callback<DefaultResponse>() {
+                @Override
+                public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                    showProgress(false);
+                    if (response.body().getOk()) {
+                        switchToStockCase();
+                    } else {
+                        App.getInstance().getUtils().showError(response.body().getError());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<DefaultResponse> call, Throwable t) {
+                    App.getInstance().getUtils().showError("Нет доступа к интернету");
+                    showProgress(false);
+
+                }
+            });
+        } else {
+            App.getInstance().getRetrofit().register(getRegDataFromFields()).enqueue(new Callback<DefaultResponse>() {
+                @Override
+                public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                    showProgress(false);
+                    if (response.body().getOk()) {
+                        switchToStockCase();
+                    } else {
+                        App.getInstance().getUtils().showError(response.body().getError());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<DefaultResponse> call, Throwable t) {
+                    App.getInstance().getUtils().showError("Нет доступа к интернету");
+                    showProgress(false);
+
+                }
+            });
         }
 
     }

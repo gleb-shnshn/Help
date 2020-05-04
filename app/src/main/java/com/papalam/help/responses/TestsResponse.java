@@ -1,4 +1,4 @@
-package com.papalam.help;
+package com.papalam.help.responses;
 
 import com.papalam.help.model.Test;
 
