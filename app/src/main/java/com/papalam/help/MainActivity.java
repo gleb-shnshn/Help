@@ -18,6 +18,11 @@ import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     TextView title;
+    FormsFragment formsFragment = new FormsFragment();
+    ModelFragment modelFragment = new ModelFragment();
+    ChatFragment chatFragment = new ChatFragment();
+    ContactsFragment contactsFragment = new ContactsFragment();
+    PainFragment painFragment = new PainFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,19 +38,25 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        painFragment.applyImage();
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.navigation_tests:
-                setFragment("Тесты", new FormsFragment());
+                setFragment("Тесты", formsFragment);
                 break;
             case R.id.navigation_diary:
-                setFragment("Дневник", new ContactsFragment());
+                setFragment("Дневник", painFragment);
                 break;
             case R.id.navigation_chat:
-                setFragment("Чат", new ChatFragment());
+                setFragment("Чат", chatFragment);
                 break;
             case R.id.navigation_contacts:
-                setFragment("Контакты", new ContactsFragment());
+                setFragment("Контакты", contactsFragment);
                 break;
 
         }
