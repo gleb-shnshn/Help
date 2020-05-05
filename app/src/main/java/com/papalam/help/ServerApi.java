@@ -8,6 +8,7 @@ import com.papalam.help.responses.ContactsResponse;
 import com.papalam.help.responses.DefaultResponse;
 import com.papalam.help.responses.MessagesResponse;
 import com.papalam.help.responses.PainAreasResponse;
+import com.papalam.help.responses.TestResultResponse;
 import com.papalam.help.responses.TestsResponse;
 
 import okhttp3.MultipartBody;
@@ -49,4 +50,7 @@ public interface ServerApi {
 
     @GET("/client/send_chat_message")
     Call<DefaultResponse> sendMessage(@Query("login") String login, @Query("text") String text);
+
+    @GET("/api/get_test_result")
+    Call<TestResultResponse> getTestResult(@Query("login") String login, @Query("test_id") int test_id, @Query("score") int score);
 }

@@ -19,11 +19,11 @@ public class PainPoint {
         return r;
     }
 
-    public PainPoint(float x, float y, String comment) {
+    public PainPoint(float x, float y, int r, String comment) {
         this.x = x;
         this.y = y;
         this.comment = comment;
-        this.r = 15;
+        this.r = r;
         this.login = App.getInstance().getDataHandler().getLogin();
     }
 

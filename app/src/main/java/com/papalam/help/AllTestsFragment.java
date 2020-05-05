@@ -38,9 +38,13 @@ public class AllTestsFragment extends Fragment {
         App.getInstance().getRetrofit().getTests().enqueue(new Callback<TestsResponse>() {
             @Override
             public void onResponse(@NonNull Call<TestsResponse> call, @NonNull Response<TestsResponse> response) {
-                TestsAdapter testsAdapter = new TestsAdapter(getContext(), response.body().getTests());
-                testsView.setAdapter(testsAdapter);
-                testsView.setLayoutManager(new LinearLayoutManager(getContext()));
+                if (response.body() == null) {
+                    App.getInstance().getUtils().showError(Errorer.SERVER_ERROR);
+                } else {
+                    TestsAdapter testsAdapter = new TestsAdapter(getContext(), response.body().getTests());
+                    testsView.setAdapter(testsAdapter);
+                    testsView.setLayoutManager(new LinearLayoutManager(getContext()));
+                }
             }
 
             @Override

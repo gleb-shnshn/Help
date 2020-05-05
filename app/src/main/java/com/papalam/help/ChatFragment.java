@@ -52,8 +52,12 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
         App.getInstance().getRetrofit().getChatMessages().enqueue(new Callback<MessagesResponse>() {
             @Override
             public void onResponse(@NonNull Call<MessagesResponse> call, @NonNull Response<MessagesResponse> response) {
-                if (getView() != null) {
-                    messageAdapter.setMessages(response.body().getMessages());
+                if (response.body() == null) {
+                    App.getInstance().getUtils().showError(Errorer.SERVER_ERROR);
+                } else {
+                    if (getView() != null) {
+                        messageAdapter.setMessages(response.body().getMessages());
+                    }
                 }
             }
 

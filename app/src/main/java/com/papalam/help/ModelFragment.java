@@ -65,9 +65,13 @@ public class ModelFragment extends Fragment implements View.OnTouchListener {
         App.getInstance().getRetrofit().getPainAreas(App.getInstance().getDataHandler().getLogin(), "2020-05-05").enqueue(new Callback<PainAreasResponse>() {
             @Override
             public void onResponse(Call<PainAreasResponse> call, Response<PainAreasResponse> response) {
-                ArrayList<PainPoint> areas = response.body().getAreas();
-                for (PainPoint point : areas) {
-                    addView(point.getX() * width, point.getY() * height);
+                if (response.body() == null) {
+                    App.getInstance().getUtils().showError(Errorer.SERVER_ERROR);
+                } else {
+                    ArrayList<PainPoint> areas = response.body().getAreas();
+                    for (PainPoint point : areas) {
+                        addView(point.getX() * width, point.getY() * height);
+                    }
                 }
             }
 

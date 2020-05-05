@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.papalam.help.helpers.Errorer;
 import com.papalam.help.model.Test;
+import com.papalam.help.responses.TestResultResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -67,6 +68,7 @@ public class TestFragment extends Fragment implements View.OnClickListener {
         if (sum == -1) {
             App.getInstance().getUtils().showError(Errorer.CHECK_ALL_FIELDS);
         }
+        ((MainActivity) getActivity()).setFragment("Результаты теста", new TestResultFragment(id, sum));
     }
 }
 

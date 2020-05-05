@@ -8,7 +8,7 @@
     <EditText
         android:id="@+id/descriptionEditText"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"
@@ -36,7 +36,7 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@id/descriptionEditText"
         app:layout_constraintStart_toStartOf="@id/descriptionEditText"
-        app:layout_constraintTop_toBottomOf="@id/descriptionEditText" />
+        app:layout_constraintTop_toBottomOf="@id/seekBar" />
 
     <ImageView
         android:id="@+id/image"
@@ -53,11 +53,48 @@
         android:id="@+id/approve"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="15dp"
         android:background="@color/colorPrimary"
         android:text="Сохранить"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/descriptionEditText"
         app:layout_constraintStart_toStartOf="@id/descriptionEditText" />
+
+    <TextView
+        android:id="@+id/pain"
+        style="@style/Widget.AppCompat.SeekBar"
+        android:layout_width="wrap_content"
+        android:textSize="17sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/jost"
+        android:text="Боль"
+        app:layout_constraintStart_toStartOf="@id/descriptionEditText"
+        app:layout_constraintTop_toBottomOf="@id/descriptionEditText" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        style="@style/Widget.AppCompat.SeekBar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="15dp"
+        android:max="10"
+        android:progress="3"
+        app:layout_constraintBottom_toBottomOf="@id/pain"
+        app:layout_constraintEnd_toStartOf="@id/percent"
+        app:layout_constraintStart_toEndOf="@id/pain"
+        app:layout_constraintTop_toBottomOf="@id/descriptionEditText" />
+
+    <TextView
+        android:id="@+id/percent"
+        style="@style/Widget.AppCompat.SeekBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:textSize="17sp"
+        android:fontFamily="@font/jost"
+        android:text="3"
+        app:layout_constraintEnd_toEndOf="@id/descriptionEditText"
+        app:layout_constraintTop_toBottomOf="@id/descriptionEditText" />
 </androidx.constraintlayout.widget.ConstraintLayout>

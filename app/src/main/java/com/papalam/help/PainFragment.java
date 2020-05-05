@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,6 +37,8 @@ import retrofit2.Response;
 public class PainFragment extends Fragment implements View.OnClickListener {
     private static final int INPUT_FILE_REQUEST_CODE = 1;
     private ImageView image;
+    private SeekBar seekBar;
+    private TextView painPercent;
     private EditText descriptionEditText;
     private float x, y;
     private String uri = "";
@@ -55,6 +59,24 @@ public class PainFragment extends Fragment implements View.OnClickListener {
         view.findViewById(R.id.applyPicture).setOnClickListener(this);
         view.findViewById(R.id.approve).setOnClickListener(this);
         image = view.findViewById(R.id.image);
+        seekBar = view.findViewById(R.id.seekBar);
+        painPercent = view.findViewById(R.id.percent);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                painPercent.setText(String.valueOf(progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
         descriptionEditText = view.findViewById(R.id.descriptionEditText);
         super.onViewCreated(view, savedInstanceState);
     }
@@ -97,7 +119,7 @@ public class PainFragment extends Fragment implements View.OnClickListener {
             File file = new File(getPath(Uri.parse(uri)));
             RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), file);
             MultipartBody.Part part = MultipartBody.Part.createFormData("image", file.getName(), fileReqBody);
-            App.getInstance().getRetrofit().addPainArea(part, new PainPoint(x, y, descriptionEditText.getText().toString())).enqueue(new Callback<DefaultResponse>() {
+            App.getInstance().getRetrofit().addPainArea(part, new PainPoint(x, y, seekBar.getProgress(), descriptionEditText.getText().toString())).enqueue(new Callback<DefaultResponse>() {
                 @Override
                 public void onResponse(@NonNull Call<DefaultResponse> call, @NonNull Response<DefaultResponse> response) {
                     MainActivity activity = ((MainActivity) getActivity());
