@@ -16,4 +16,6 @@
     <string name="password">Пароль</string>
     <string name="blurred_password_hint">********</string>
     <string name="name_and_surname">Имя и фамилия</string>
+    <string name="phone_example">8-800-700-84-36</string>
+    <string name="contact_name_example">Горячая линия</string>
 </resources>

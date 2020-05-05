@@ -13,17 +13,22 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.papalam.help.helpers.Errorer;
+import com.papalam.help.model.Message;
 import com.papalam.help.responses.DefaultResponse;
 import com.papalam.help.responses.MessagesResponse;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ChatFragment extends Fragment implements View.OnClickListener {
-    RecyclerView chatView;
-    ImageView sendButton;
-    EditText messageInput;
+    private RecyclerView chatView;
+    private ImageView sendButton;
+    private EditText messageInput;
+    private MessageAdapter messageAdapter;
 
     @Nullable
     @Override
@@ -36,24 +41,25 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
         chatView = view.findViewById(R.id.chat_view);
         sendButton = view.findViewById(R.id.sendButton);
         messageInput = view.findViewById(R.id.messageInput);
+        messageAdapter = new MessageAdapter(getContext(), new ArrayList<Message>());
+        chatView.setAdapter(messageAdapter);
+        chatView.setLayoutManager(new LinearLayoutManager(getContext()));
         super.onViewCreated(view, savedInstanceState);
     }
 
 
-    public void updateMessages() {
+    private void updateMessages() {
         App.getInstance().getRetrofit().getChatMessages().enqueue(new Callback<MessagesResponse>() {
             @Override
-            public void onResponse(Call<MessagesResponse> call, Response<MessagesResponse> response) {
+            public void onResponse(@NonNull Call<MessagesResponse> call, @NonNull Response<MessagesResponse> response) {
                 if (getView() != null) {
-                    MessageAdapter messageAdapter = new MessageAdapter(getContext(), response.body().getMessages());
-                    chatView.setAdapter(messageAdapter);
-                    chatView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    messageAdapter.setMessages(response.body().getMessages());
                 }
             }
 
             @Override
-            public void onFailure(Call<MessagesResponse> call, Throwable t) {
-                App.getInstance().getUtils().showError("Нет доступа к интернету");
+            public void onFailure(@NonNull Call<MessagesResponse> call, @NonNull Throwable t) {
+                App.getInstance().getUtils().showError(Errorer.NO_INTERNET_CONNECTION);
             }
         });
     }
@@ -65,7 +71,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
             public void run() {
                 while (true) {
                     try {
-                        Thread.sleep(1500);
+                        Thread.sleep(4000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -89,19 +95,19 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         String msg = messageInput.getText().toString();
         if (msg.equals("")) {
-            App.getInstance().getUtils().showError("Введите сообщение");
+            App.getInstance().getUtils().showError(Errorer.INPUT_MESSAGE);
             return;
         }
 
         App.getInstance().getRetrofit().sendMessage(App.getInstance().getDataHandler().getLogin(), msg).enqueue(new Callback<DefaultResponse>() {
             @Override
-            public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+            public void onResponse(@NonNull Call<DefaultResponse> call, @NonNull Response<DefaultResponse> response) {
 
             }
 
             @Override
-            public void onFailure(Call<DefaultResponse> call, Throwable t) {
-                App.getInstance().getUtils().showError("Нет доступа к интернету");
+            public void onFailure(@NonNull Call<DefaultResponse> call, @NonNull Throwable t) {
+                App.getInstance().getUtils().showError(Errorer.NO_INTERNET_CONNECTION);
             }
         });
         messageInput.setText("");

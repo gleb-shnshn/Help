@@ -1,7 +1,5 @@
 package com.papalam.help;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,15 +13,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.papalam.help.model.CheckListItem;
 
 import java.util.ArrayList;
 
 
 public class ScheduleFragment extends Fragment implements View.OnClickListener {
-    RecyclerView itemListView;
-    CheckListItemAdapter adapter;
+    private RecyclerView itemListView;
+    private CheckListItemAdapter adapter;
 
     @Nullable
     @Override

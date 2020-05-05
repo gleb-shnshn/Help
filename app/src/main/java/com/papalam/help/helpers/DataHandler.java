@@ -1,7 +1,9 @@
-package com.papalam.help;
+package com.papalam.help.helpers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import com.papalam.help.App;
 
 
 public class DataHandler {

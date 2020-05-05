@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.papalam.help.helpers.Errorer;
 import com.papalam.help.model.PainPoint;
 import com.papalam.help.responses.DefaultResponse;
 
@@ -32,12 +33,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PainFragment extends Fragment implements View.OnClickListener {
-    public static final int INPUT_FILE_REQUEST_CODE = 1;
-    ImageView image;
-    EditText descriptionEditText;
-    float x, y;
-    String uri = "";
-    String date = "";
+    private static final int INPUT_FILE_REQUEST_CODE = 1;
+    private ImageView image;
+    private EditText descriptionEditText;
+    private float x, y;
+    private String uri = "";
 
     public void setXY(float x, float y) {
         this.x = x;
@@ -78,8 +78,7 @@ public class PainFragment extends Fragment implements View.OnClickListener {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
             photo.compress(Bitmap.CompressFormat.PNG, 100, bytes);
-            String path = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), photo, "image", null);
-            uri = path;
+            uri = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), photo, "image", null);
             image.setImageURI(Uri.parse(uri));
         }
     }
@@ -96,21 +95,18 @@ public class PainFragment extends Fragment implements View.OnClickListener {
         } else {
             Log.d("okhttp", uri);
             File file = new File(getPath(Uri.parse(uri)));
-            // Create a request body with file and image media type
             RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), file);
-            // Create MultipartBody.Part using file request-body,file name and part name
             MultipartBody.Part part = MultipartBody.Part.createFormData("image", file.getName(), fileReqBody);
-            //Create request body with text description and text media type
             App.getInstance().getRetrofit().addPainArea(part, new PainPoint(x, y, descriptionEditText.getText().toString())).enqueue(new Callback<DefaultResponse>() {
                 @Override
-                public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
+                public void onResponse(@NonNull Call<DefaultResponse> call, @NonNull Response<DefaultResponse> response) {
                     MainActivity activity = ((MainActivity) getActivity());
                     activity.setFragment(App.getInstance().getDataHandler().getData("date"), new AllPainFragment());
                 }
 
                 @Override
-                public void onFailure(Call<DefaultResponse> call, Throwable t) {
-                    App.getInstance().getUtils().showError(t.toString());
+                public void onFailure(@NonNull Call<DefaultResponse> call, @NonNull Throwable t) {
+                    App.getInstance().getUtils().showError(Errorer.NO_INTERNET_CONNECTION);
                 }
             });
         }

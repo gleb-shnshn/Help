@@ -18,9 +18,9 @@ import com.papalam.help.model.Message;
 import java.util.ArrayList;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
-    ArrayList<Message> messages;
-    LayoutInflater inflater;
-    String[] colors = {"#00c13f",
+    private ArrayList<Message> messages;
+    private LayoutInflater inflater;
+    private String[] colors = {"#00c13f",
             "#56c5ff",
             "#ff76bc",
             "#81ecec",
@@ -36,7 +36,15 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     MessageAdapter(Context context, ArrayList<Message> messages) {
         inflater = LayoutInflater.from(context);
+        setMessages(messages);
+    }
+
+    public void setMessages(ArrayList<Message> messages) {
+        for (Message message : messages) {
+            message.setMine(message.getLogin().equals(App.getInstance().getDataHandler().getLogin()));
+        }
         this.messages = messages;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -56,11 +64,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             holder.name.setText(message.getName());
             holder.text2.setText(message.getText());
             String[] shorted = message.getName().split(" ");
-            String nm = "";
+            StringBuilder nm = new StringBuilder();
             for (int i = 0; i < Math.min(shorted.length, 2); i++) {
-                nm += shorted[i].charAt(0);
+                nm.append(shorted[i].charAt(0));
             }
-            holder.logo.setText(nm);
+            holder.logo.setText(nm.toString());
             int clr = Color.parseColor(colors[message.getName().hashCode() % colors.length]);
             if (message.getBd() == null) {
                 ShapeDrawable sd = new ShapeDrawable();

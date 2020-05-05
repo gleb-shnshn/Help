@@ -1,8 +1,10 @@
-package com.papalam.help;
+package com.papalam.help.helpers;
 
 import com.muddzdev.styleabletoast.StyleableToast;
+import com.papalam.help.App;
+import com.papalam.help.R;
 
-class GeneralUtils {
+public class GeneralUtils {
     public void showError(String errorMessage) {
         new StyleableToast
                 .Builder(App.getInstance())

@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.papalam.help.helpers.Errorer;
 import com.papalam.help.model.Contact;
 import com.papalam.help.responses.ContactsResponse;
 
@@ -21,8 +22,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ContactsFragment extends Fragment implements View.OnClickListener {
-    RecyclerView contactsView;
-    ContactAdapter contactAdapter;
+    private RecyclerView contactsView;
+    private ContactAdapter contactAdapter;
 
     @Nullable
     @Override
@@ -41,15 +42,15 @@ public class ContactsFragment extends Fragment implements View.OnClickListener {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         App.getInstance().getRetrofit().getContacts().enqueue(new Callback<ContactsResponse>() {
             @Override
-            public void onResponse(Call<ContactsResponse> call, Response<ContactsResponse> response) {
+            public void onResponse(@NonNull Call<ContactsResponse> call,@NonNull Response<ContactsResponse> response) {
                 contactAdapter = new ContactAdapter(getActivity(), response.body().getContacts());
                 contactsView.setAdapter(contactAdapter);
                 contactsView.setLayoutManager(new LinearLayoutManager(getContext()));
             }
 
             @Override
-            public void onFailure(Call<ContactsResponse> call, Throwable t) {
-                App.getInstance().getUtils().showError("Нет доступа к интернету" + t.toString());
+            public void onFailure(@NonNull Call<ContactsResponse> call, @NonNull Throwable t) {
+                App.getInstance().getUtils().showError(Errorer.NO_INTERNET_CONNECTION);
             }
         });
         super.onActivityCreated(savedInstanceState);

@@ -29,8 +29,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(MainActivity.this);
         navView.setSelectedItemId(R.id.navigation_tests);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
 
     }
 

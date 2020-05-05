@@ -14,7 +14,8 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:background="@color/colorPrimary" />
+        android:background="@color/colorPrimary"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/name"
@@ -22,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:fontFamily="@font/gilroy"
-        android:text="Горячая линия"
+        android:text="@string/contact_name_example"
         android:textColor="#000"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/icon"
@@ -40,7 +41,7 @@
         android:autoLink="all"
         android:fontFamily="@font/gilroyl"
         android:linksClickable="true"
-        android:text="8-800-700-84-36"
+        android:text="@string/phone_example"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/icon"
@@ -51,9 +52,9 @@
         android:id="@+id/icon"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

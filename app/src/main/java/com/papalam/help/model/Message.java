@@ -3,12 +3,21 @@ package com.papalam.help.model;
 import android.graphics.drawable.Drawable;
 
 public class Message {
-    String name;
-    String text;
-    Drawable bd;
-    int color;
-    boolean isMine;
-    int id;
+    private String name;
+    private String text;
+    private Drawable bd;
+    private int color;
+    private boolean isMine;
+    private int id;
+    private String login;
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
 
     public String getName() {
         return name;
@@ -56,12 +65,5 @@ public class Message {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public Message(String name, String text, int id, boolean isMine) {
-        this.name = name;
-        this.text = text;
-        this.id = id;
-        this.isMine = isMine;
     }
 }

@@ -7,17 +7,16 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
-import com.papalam.help.model.CheckListItem;
+import com.papalam.help.helpers.Errorer;
 import com.papalam.help.model.Contact;
 
 public class ContactsDialog extends Dialog implements View.OnClickListener {
-    EditText name, description;
-    Button save;
-    ContactsFragment fragment;
+    private EditText name, description;
+    private Button save;
+    private ContactsFragment fragment;
 
     public ContactsDialog(@NonNull Context context, ContactsFragment fragment) {
         super(context);
@@ -39,7 +38,7 @@ public class ContactsDialog extends Dialog implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (name.getText().toString().length() == 0 || description.getText().toString().length() == 0) {
-            App.getInstance().getUtils().showError("Поля не могут быть пустыми");
+            App.getInstance().getUtils().showError(Errorer.BLANK_FIELDS);
         } else {
             fragment.onFinishDialog(new Contact(name.getText().toString(), description.getText().toString()));
             this.hide();

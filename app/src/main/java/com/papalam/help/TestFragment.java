@@ -12,12 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.papalam.help.model.Question;
+import com.papalam.help.helpers.Errorer;
 import com.papalam.help.model.Test;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -59,7 +55,7 @@ public class TestFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onFailure(Call<Test> call, Throwable t) {
-                App.getInstance().getUtils().showError("Нет доступа к интернету");
+                App.getInstance().getUtils().showError(Errorer.NO_INTERNET_CONNECTION);
             }
         });
         super.onActivityCreated(savedInstanceState);
@@ -69,7 +65,7 @@ public class TestFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         int sum = questionAdapter.getSum();
         if (sum == -1) {
-            App.getInstance().getUtils().showError("Отметьте все поля");
+            App.getInstance().getUtils().showError(Errorer.CHECK_ALL_FIELDS);
         }
     }
 }

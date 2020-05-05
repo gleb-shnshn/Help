@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.papalam.help.helpers.Errorer;
 import com.papalam.help.responses.TestsResponse;
 
 import retrofit2.Call;
@@ -18,7 +19,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AllTestsFragment extends Fragment {
-    RecyclerView testsView;
+    private RecyclerView testsView;
 
     @Nullable
     @Override
@@ -36,15 +37,15 @@ public class AllTestsFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         App.getInstance().getRetrofit().getTests().enqueue(new Callback<TestsResponse>() {
             @Override
-            public void onResponse(Call<TestsResponse> call, Response<TestsResponse> response) {
+            public void onResponse(@NonNull Call<TestsResponse> call, @NonNull Response<TestsResponse> response) {
                 TestsAdapter testsAdapter = new TestsAdapter(getContext(), response.body().getTests());
                 testsView.setAdapter(testsAdapter);
                 testsView.setLayoutManager(new LinearLayoutManager(getContext()));
             }
 
             @Override
-            public void onFailure(Call<TestsResponse> call, Throwable t) {
-                App.getInstance().getUtils().showError("Нет доступа к интернету");
+            public void onFailure(@NonNull Call<TestsResponse> call, @NonNull Throwable t) {
+                App.getInstance().getUtils().showError(Errorer.NO_INTERNET_CONNECTION);
             }
         });
         super.onActivityCreated(savedInstanceState);

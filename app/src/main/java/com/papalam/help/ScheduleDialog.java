@@ -11,13 +11,14 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
+import com.papalam.help.helpers.Errorer;
 import com.papalam.help.model.CheckListItem;
 
 public class ScheduleDialog extends Dialog implements View.OnClickListener {
-    EditText name, description;
-    ImageView logo1, logo2, logo3, selected;
-    Button save;
-    ScheduleFragment fragment;
+    private EditText name, description;
+    private ImageView logo1, logo2, logo3, selected;
+    private Button save;
+    private ScheduleFragment fragment;
 
     public ScheduleDialog(@NonNull Context context, ScheduleFragment fragment) {
         super(context);
@@ -43,7 +44,7 @@ public class ScheduleDialog extends Dialog implements View.OnClickListener {
         setSelected(R.id.logo1);
     }
 
-    public void setSelected(int id) {
+    private void setSelected(int id) {
         ImageView newImage;
         switch (id) {
             case R.id.logo1:
@@ -67,7 +68,7 @@ public class ScheduleDialog extends Dialog implements View.OnClickListener {
     public void onClick(View v) {
         if (v.getId() == R.id.save) {
             if (name.getText().toString().length() == 0 || description.getText().toString().length() == 0) {
-                App.getInstance().getUtils().showError("Поля не могут быть пустыми");
+                App.getInstance().getUtils().showError(Errorer.BLANK_FIELDS);
             } else {
                 int tag = 0;
                 switch (selected.getId()) {
