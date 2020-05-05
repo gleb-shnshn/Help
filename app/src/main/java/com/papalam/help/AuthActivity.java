@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.papalam.help.model.LoginAndPassword;
+import com.papalam.help.model.RegistrationData;
 import com.papalam.help.responses.DefaultResponse;
 
 import retrofit2.Call;

@@ -1,4 +1,4 @@
-package com.papalam.help;
+package com.papalam.help.model;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -8,9 +8,6 @@ public class RegistrationData {
 
     @SerializedName("password")
     String password;
-
-    @SerializedName("doctorId")
-    String doctorId;
 
     @SerializedName("name")
     String name;

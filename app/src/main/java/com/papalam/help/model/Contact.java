@@ -29,10 +29,17 @@ public class Contact {
     public void setIcon(String icon) {
         this.icon = icon;
     }
+
     public Contact(String name, String description, String icon) {
         this.name = name;
         this.description = description;
         this.icon = icon;
+    }
+
+    public Contact(String name, String description) {
+        this.name = name;
+        this.description = description;
+        this.icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Google_Contacts_icon.svg/240px-Google_Contacts_icon.svg.png";
     }
 
 }

@@ -2,6 +2,7 @@ package com.papalam.help;
 
 import com.papalam.help.model.LoginAndPassword;
 import com.papalam.help.model.PainPoint;
+import com.papalam.help.model.RegistrationData;
 import com.papalam.help.model.Test;
 import com.papalam.help.responses.ContactsResponse;
 import com.papalam.help.responses.DefaultResponse;
