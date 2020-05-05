@@ -80,7 +80,7 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if (App.getInstance().getDataHandler().getAccessToken().equals("")) {
+                if (App.getInstance().getDataHandler().getLogin().equals("")) {
                     updateContentViewOnUiThread(R.layout.activity_auth, true);
                 } else {
                     switchToStockCase();
@@ -156,6 +156,8 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void switchToStockCase() {
+        if (loginField != null)
+            App.getInstance().getDataHandler().saveLogin(loginField.getText().toString());
         Intent intent = new Intent(AuthActivity.this, MainActivity.class);
         startActivity(intent);
         finish();

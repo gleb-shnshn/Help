@@ -93,7 +93,7 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
             return;
         }
 
-        App.getInstance().getRetrofit().sendMessage("test", msg).enqueue(new Callback<DefaultResponse>() {
+        App.getInstance().getRetrofit().sendMessage(App.getInstance().getDataHandler().getLogin(), msg).enqueue(new Callback<DefaultResponse>() {
             @Override
             public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
 

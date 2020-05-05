@@ -74,7 +74,9 @@ public class CalendarFragment extends Fragment implements View.OnClickListener {
                 month = "декабря";
                 break;
         }
-
-        ((MainActivity) getActivity()).setFragment(date.getDay() + " " + month + " " + date.getYear(), new AllPainFragment());
+        String data = date.getDay() + " " + month + " " + date.getYear();
+        App.getInstance().getDataHandler().setData("date", data);
+        MainActivity activity = ((MainActivity) getActivity());
+        activity.setFragment(data, new AllPainFragment());
     }
 }

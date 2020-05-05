@@ -25,6 +25,11 @@ public class CheckListItemAdapter extends RecyclerView.Adapter<CheckListItemAdap
         this.items = items;
     }
 
+    public void addItem(CheckListItem item) {
+        items.add(item);
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

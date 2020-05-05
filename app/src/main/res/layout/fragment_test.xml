@@ -22,7 +22,7 @@
         android:background="@color/colorPrimary"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
-        android:text="Подтвердить"
+        android:text="Ответить"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

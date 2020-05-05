@@ -67,11 +67,4 @@ public class App extends Application {
         return sharedPrefsHandler;
     }
 
-    public AppCompatActivity getCurrentActivity() {
-        return currentActivity;
-    }
-
-    public void setCurrentActivity(AppCompatActivity currentActivity) {
-        this.currentActivity = currentActivity;
-    }
 }

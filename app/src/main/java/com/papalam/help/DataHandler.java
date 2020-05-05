@@ -8,22 +8,24 @@ public class DataHandler {
     private final SharedPreferences SHARED_PREFERENCES;
 
     public DataHandler() {
-        this.SHARED_PREFERENCES = App.getInstance().getSharedPreferences("tokens", Context.MODE_PRIVATE);
+        this.SHARED_PREFERENCES = App.getInstance().getSharedPreferences("data", Context.MODE_PRIVATE);
     }
 
-    public String getRefreshToken() {
-        return SHARED_PREFERENCES.getString("refreshToken", "");
+    public String getLogin() {
+        return getData("login");
     }
 
-    public String getAccessToken() {
-        return SHARED_PREFERENCES.getString("accessToken", "");
+    public void saveLogin(String login) {
+        setData("login", login);
     }
 
-    public void saveTokens(String accessToken, String refreshToken) {
+    public void setData(String key, String data) {
         SharedPreferences.Editor ed = SHARED_PREFERENCES.edit();
-        ed.putString("accessToken", accessToken);
-        ed.putString("refreshToken", refreshToken);
+        ed.putString(key, data);
         ed.apply();
     }
 
+    public String getData(String key) {
+        return SHARED_PREFERENCES.getString(key, "");
+    }
 }

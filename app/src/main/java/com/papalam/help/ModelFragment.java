@@ -1,6 +1,8 @@
 package com.papalam.help;
 
+import android.graphics.Point;
 import android.os.Bundle;
+import android.util.Size;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,6 +27,8 @@ public class ModelFragment extends Fragment implements View.OnTouchListener {
     ConstraintLayout layout;
     FloatingActionButton editButton;
     boolean isBlocked = true;
+    int width;
+    int height;
 
     @Nullable
     @Override
@@ -54,13 +58,16 @@ public class ModelFragment extends Fragment implements View.OnTouchListener {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getActivity().getWindowManager().getDefaultDisplay().getSize()
-        App.getInstance().getRetrofit().getPainAreas("test", "2020-05-04").enqueue(new Callback<PainAreasResponse>() {
+        Point point = new Point();
+        getActivity().getWindowManager().getDefaultDisplay().getSize(point);
+        width = point.x;
+        height = point.y;
+        App.getInstance().getRetrofit().getPainAreas("test", "2020-05-05").enqueue(new Callback<PainAreasResponse>() {
             @Override
             public void onResponse(Call<PainAreasResponse> call, Response<PainAreasResponse> response) {
                 ArrayList<PainPoint> areas = response.body().getAreas();
                 for (PainPoint point : areas) {
-                    addView(point.getX(), point.getY());
+                    addView(point.getX() * width, point.getY() * height);
                 }
             }
 
@@ -93,7 +100,7 @@ public class ModelFragment extends Fragment implements View.OnTouchListener {
             case MotionEvent.ACTION_CANCEL:
                 MainActivity activity = (MainActivity) getActivity();
                 activity.setFragment("Новая запись", activity.painFragment);
-                activity.painFragment.setXY(x, y);
+                activity.painFragment.setXY(x / width, y / height);
                 break;
         }
         return true;

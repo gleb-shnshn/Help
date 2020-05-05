@@ -1,6 +1,7 @@
 package com.papalam.help.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.papalam.help.App;
 
 public class PainPoint {
     float x;
@@ -23,7 +24,7 @@ public class PainPoint {
         this.y = y;
         this.comment = comment;
         this.r = 15;
-        this.login = "test";
+        this.login = App.getInstance().getDataHandler().getLogin();
     }
 
     public void setR(float r) {

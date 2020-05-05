@@ -37,6 +37,7 @@ public class PainFragment extends Fragment implements View.OnClickListener {
     EditText descriptionEditText;
     float x, y;
     String uri = "";
+    String date = "";
 
     public void setXY(float x, float y) {
         this.x = x;
@@ -74,11 +75,11 @@ public class PainFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-                Bitmap photo = (Bitmap) data.getExtras().get("data");
-                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                photo.compress(Bitmap.CompressFormat.PNG, 100, bytes);
-                String path = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), photo, "image", null);
-                uri = path;
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            photo.compress(Bitmap.CompressFormat.PNG, 100, bytes);
+            String path = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), photo, "image", null);
+            uri = path;
             image.setImageURI(Uri.parse(uri));
         }
     }
@@ -103,8 +104,8 @@ public class PainFragment extends Fragment implements View.OnClickListener {
             App.getInstance().getRetrofit().addPainArea(part, new PainPoint(x, y, descriptionEditText.getText().toString())).enqueue(new Callback<DefaultResponse>() {
                 @Override
                 public void onResponse(Call<DefaultResponse> call, Response<DefaultResponse> response) {
-                    App.getInstance().getUtils().showError("ready");
-
+                    MainActivity activity = ((MainActivity) getActivity());
+                    activity.setFragment(App.getInstance().getDataHandler().getData("date"), new AllPainFragment());
                 }
 
                 @Override
