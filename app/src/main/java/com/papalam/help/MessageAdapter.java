@@ -69,7 +69,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                 nm.append(shorted[i].charAt(0));
             }
             holder.logo.setText(nm.toString());
-            int clr = Color.parseColor(colors[message.getName().hashCode() % colors.length]);
+            int clr = Color.parseColor(colors[Math.abs(message.getName().hashCode()) % colors.length]);
             if (message.getBd() == null) {
                 ShapeDrawable sd = new ShapeDrawable();
                 sd.setShape(new OvalShape());

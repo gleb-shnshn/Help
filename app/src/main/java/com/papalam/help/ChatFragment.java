@@ -19,6 +19,7 @@ import com.papalam.help.responses.DefaultResponse;
 import com.papalam.help.responses.MessagesResponse;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -56,7 +57,9 @@ public class ChatFragment extends Fragment implements View.OnClickListener {
                     App.getInstance().getUtils().showError(Errorer.SERVER_ERROR);
                 } else {
                     if (getView() != null) {
+                        Collections.reverse(response.body().getMessages());
                         messageAdapter.setMessages(response.body().getMessages());
+                        chatView.scrollToPosition(response.body().getMessages().size() - 1);
                     }
                 }
             }
